@@ -9,7 +9,6 @@ const app = createApp({
       newTask: {
         text: "",
         done: false,
-        esempio: "none",
       },
 
 
@@ -34,6 +33,15 @@ const app = createApp({
         //se non riscarico i dati ogni volta non ho la certezza che alri utenti non abbiano inserito altri dati
         this.fetchTasksList();
         this.newTask.text = null;
+      });
+    },
+    /* DELETE NEW TASK */
+    deleteTask(taskIdToDelete) {
+      axios.post("api/deleteTask.php", {taskIdToDelete}, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then((resp) => {
+  
+        this.fetchTasksList();
       });
     },
   },
