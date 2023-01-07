@@ -8,8 +8,8 @@ const app = createApp({
       //creo nuovo task con form
       newTask: {
         text: "",
-        done: false,
       },
+      taskToModify:null,
 
 
     }
@@ -42,6 +42,20 @@ const app = createApp({
       }).then((resp) => {
   
         this.fetchTasksList();
+      });
+    },
+
+    /*  MODIFY NEW TASK */
+    modifyTask(task) {
+
+      this.taskToModify = {...task};
+
+      axios.post("api/modifyTask.php", this.taskToModify, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then((resp) => {
+  
+        this.fetchTasksList();
+        this.taskToModify = null;
       });
     },
   },

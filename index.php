@@ -51,8 +51,7 @@
                   <input type="text" class="form-control" id="newTask" placeholder="your new task"
                       v-model="newTask.text">
                 </div>
-                <button type="submit" class="btn btn-danger mb-2 col-1"
-                  > <i
+                <button type="submit" class="btn btn-danger mb-2 col-1"> <i
                       class="fa fa-plus"></i> </button>
               </div>
             </fieldset>
@@ -62,17 +61,27 @@
             <ul class="mt-5 border rounded-4 p-5">
 
               <li v-for="task in tasks"
-                  class="d-flex w-100 border-bottom align-items-baseline">
-                <label for="done">
-                  <!--    <i class="fa-regular fa-circle-check"></i>
-                  <i class="fa-regular fa-circle"></i> -->
+                  class="d-flex w-100 border-bottom align-items-baseline ">
 
-                  <input type="checkbox" id="done" name="done" value="true" v-model="task.done" class="m-3">
+                <label for="done" class="position-relative">
+
+                  <i v-if="(task.done ===true || task.done === 'true')"
+                      class="fa-regular fa-circle-check fs-5"></i>
+
+                  <i v-else
+                      class="fa-regular fa-circle fs-5"></i>
+
+                  <input class="position-absolute start-0 m-1 opacity-0" type="checkbox" id="done" name="done" value="true"
+
+                      v-model="task.done"
+                      @change="modifyTask(task)">  
                 </label>
 
-                <!--  :class="task.done?? text-decoration-line-through" -->
-                <h5 class="flex-fill">{{task.name}}</h5>
-                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <h5 class="flex-fill ms-2"
+                    :class="(task.done ===true || task.done === 'true')? 'text-decoration-line-through':''">
+                  {{task.name}}</h5>
+                  
+                <button class="btn btn-danger" @click=deleteTask(task.id)><i class="fa fa-trash"></i></button>
               </li>
             </ul>
           </section>
@@ -81,7 +90,6 @@
     </div>
   </div>
 
-  <!-- nostri file javascript -->
   <script type="module" src="js/main.js"></script>
 
 </body>
