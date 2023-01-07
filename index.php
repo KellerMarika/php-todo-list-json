@@ -26,9 +26,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
   <!-- my-css -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- vue.Js -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
   <!-- Axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -40,36 +40,38 @@
       <div class="row justify-content-center">
         <div class="form-container col-7">
 
-          <form class="form-inline">
-
+          <!-- create new task form -->
+          <form class="form-inline" @submit.prevent="createNewTask">
             <fieldset class="border rounded-4 p-5">
               <legend class="fs-2 fw-2 text-capitalize">add Task:</legend>
 
               <div class="row">
                 <label for="newTask" class="">wrote task to add:</label>
-                <div class="form-group  col-9">
-                  <input type="text" class="form-control" id="newTask" placeholder="your new task">
+                <div class="form-group  col-11">
+                  <input type="text" class="form-control" id="newTask" placeholder="your new task"
+                      v-model="newTask.text">
                 </div>
-
-                <button type="submit" class="btn btn-danger mb-2 col-2"> <i class="fa fa-plus"></i> </button>
+                <button type="submit" class="btn btn-danger mb-2 col-1"
+                  > <i
+                      class="fa fa-plus"></i> </button>
               </div>
             </fieldset>
           </form>
 
           <section class="to-do-list-container  m-auto">
             <ul class="mt-5 border rounded-4 p-5">
-              <!-- v-for su tasks  v-model="task.done" -->
-              <li
+
+              <li v-for="task in tasks"
                   class="d-flex w-100 border-bottom align-items-baseline">
                 <label for="done">
-                  <i class="fa-regular fa-circle-check"></i>
-                  <i class="fa-regular fa-circle"></i>
-                  <!--  v-model="newTask.done" -->
-                  <input type="checkbox" id="done" name="done" value="true" class="m-3">
+                  <!--    <i class="fa-regular fa-circle-check"></i>
+                  <i class="fa-regular fa-circle"></i> -->
+
+                  <input type="checkbox" id="done" name="done" value="true" v-model="task.done" class="m-3">
                 </label>
 
                 <!--  :class="task.done?? text-decoration-line-through" -->
-                <h5 class="flex-fill">{{a}}</h5>
+                <h5 class="flex-fill">{{task.name}}</h5>
                 <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
               </li>
             </ul>
@@ -80,7 +82,8 @@
   </div>
 
   <!-- nostri file javascript -->
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
+
 </body>
 
 </html>

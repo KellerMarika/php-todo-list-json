@@ -3,31 +3,41 @@ const { createApp } = Vue;
 const app = createApp({
   data() {
     return {
-      a:"totò",
       //recupero con axios da api/readTasks
-      tasks:[],
+      tasks: [],
       //creo nuovo task con form
       newTask: {
         text: "",
-        done: "",
+        done: false,
+        esempio: "none",
       },
+
+
     }
   },
   methods: {
+
+    /* READ LIST */
     fetchTasksList() {
       axios.get("api/readTasks.php")
         .then((resp) => {
           this.tasks = resp.data;
-         /*  console.log(this.tasks); */
-          console.log("ambacabanane");
+          console.log(this.tasks);
         });
     },
-    f(){
-      console.log("notte e bistecca");
-    }
+
+    /* CREATE NEW TASK */
+    createNewTask() {
+      axios.post("api/createTask.php", this.newTask, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then((resp) => {
+        //se non riscarico i dati ogni volta non ho la certezza che alri utenti non abbiano inserito altri dati
+        this.fetchTasksList();
+        this.newTask.text = null;
+      });
+    },
   },
-  mounted(){
-    this.f();
+  mounted() {
     this.fetchTasksList();
   },
 }).mount("#app");
